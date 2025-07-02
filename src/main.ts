@@ -8,13 +8,14 @@ async function bootstrap() {
 
   //Enable CORS
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || '*', // You can specify allowed origins here
+    origin: '*', // You can specify allowed origins here
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
   // Global exception filter
   app.useGlobalFilters(new AllExceptionsFilter());
+
 
   //Swagger setup
   const config = new DocumentBuilder()
@@ -26,6 +27,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(3000);
 }
 bootstrap();
+
+
