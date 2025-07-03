@@ -11,10 +11,15 @@ export class RegisterDto {
   @IsString()
   @MinLength(6)
   password: string;
+
+  @ApiProperty({ example: "user/admin"})
+  @IsString()
+  role: string; // Default to 'user' if not provided
 }
 
 
 export class LoginDto {
+  
   @ApiProperty({ example: 'john@gmail.com' })
   @IsEmail()
   email: string;
