@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { RecipesModule } from './recipes/recipes.module';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { Recipe } from './recipes/recipe.entity';
 import { User } from './users/user.entity';
 import databaseConfig from './config/database.config';
@@ -13,14 +14,14 @@ import databaseConfig from './config/database.config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig], //  Load the custom config
+      load: [databaseConfig], 
     }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const db = configService.get('database'); // Fetch the whole 'database' config
+        const db = configService.get('database'); 
         return {
           type: db.type,
           host: db.host,
@@ -35,6 +36,10 @@ import databaseConfig from './config/database.config';
         };
       },
     }),
+
+    // For scheduling tasks
+    // This module is used to run cron jobs and other scheduled tasks
+    ScheduleModule.forRoot(), 
 
     RecipesModule,
     UsersModule,

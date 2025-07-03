@@ -1,12 +1,12 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private tasksService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) {}
 
-  @Post('run-now')
-  runCronManually() {
-    return this.tasksService.handleCron();
+  @Get('run-once')
+  async runOnce() {
+    return this.tasksService.fetchFromFlavorit(); 
   }
 }

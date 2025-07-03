@@ -1,19 +1,20 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Recipe {
   @PrimaryGeneratedColumn()
-  id: number;
+  @ApiProperty()
+  course_id: number;
 
   @Column()
-  recipeId: number;
+  @ApiProperty()
+  course_name: string;
 
   @Column()
-  title: string;
-
-  @Column('text', { array: true })
-  tips: string[];
+  course_institution: string;
 
   @CreateDateColumn()
+  @ApiProperty()
   createdAt: Date;
 }

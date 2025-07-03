@@ -19,8 +19,8 @@ async function bootstrap() {
 
   //Swagger setup
   const config = new DocumentBuilder()
-    .setTitle('Recipe Book API')
-    .setDescription('API documentation for the Recipe Book application')
+    .setTitle('Course Book API')
+    .setDescription('API documentation for the Coursera Courses')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config); 
