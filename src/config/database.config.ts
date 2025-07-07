@@ -7,7 +7,7 @@ export default registerAs('database', () => ({
   username: process.env.DB_USERNAME || 'postgres',
   password: process.env.DB_PASSWORD || 'Biswa@711',
   database: process.env.DB_NAME || 'recipe-book-app',
-  ssl: false, // true for profuction
+  ssl: false, // true for production
   synchronize: true,
   autoLoadEntities: true,
 }));

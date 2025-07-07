@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { LoginDto, RegisterDto } from '../common/dto/auth.dto';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 
 @ApiTags('Auth')
@@ -9,14 +9,25 @@ export class AuthController {
 constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @ApiBody({ type: RegisterDto }) 
-  register(@Body() dto: RegisterDto) {
+  @ApiBody({ type: RegisterDto })
+  @ApiResponse({ status: 201, description: 'User successfully registered' })
+  async register(@Body() dto: RegisterDto) {
     return this.authService.register(dto);
   }
 
   @Post('login')
-  @ApiBody({ type: LoginDto }) 
-  login(@Body() dto: LoginDto) {
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({
+    status: 200,
+    description: 'JWT token returned',
+    schema: {
+      example: {
+        access_token: '',
+      },
+    },
+  })
+  async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
+  
 }

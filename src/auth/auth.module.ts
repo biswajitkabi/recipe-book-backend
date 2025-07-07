@@ -12,12 +12,15 @@ import { UsersModule } from '../users/users.module';
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
+      global: true,
       secret: process.env.JWT_SECRET || 'secret',
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '1h' },
     }),
     PassportModule,
+    UsersModule,
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
+  exports: [JwtModule, AuthService],
 })
 export class AuthModule {}

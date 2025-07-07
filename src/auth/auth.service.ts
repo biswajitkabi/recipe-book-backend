@@ -26,6 +26,8 @@ export class AuthService {
     return this.userRepo.save(user); 
   }
 
+
+
   async login(dto: LoginDto) {
     const user = await this.userRepo.findOneBy({ email: dto.email });
     if (!user) throw new UnauthorizedException('Invalid credentials');
@@ -35,8 +37,8 @@ export class AuthService {
 
     const payload = { sub: user.id, email: user.email };
     return {
-      access_token: this.jwtService.sign(payload), 
-      message: 'Login successful',
+      access_token: this.jwtService.sign(payload, { secret: process.env.JWT_SECRET || 'secret', expiresIn: '1h' }), 
+      message: 'Login Successful',
     };
   }
 }
